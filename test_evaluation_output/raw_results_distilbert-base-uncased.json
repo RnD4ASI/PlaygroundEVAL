@@ -1,0 +1,9 @@
+[
+    {
+        "benchmark_name": "ExampleNLUBenchmark",
+        "category": "Natural Language Understanding (NLU)",
+        "description": "A simple example NLU benchmark for text classification using a dummy dataset.",
+        "metrics": null,
+        "error": "0"
+    }
+]

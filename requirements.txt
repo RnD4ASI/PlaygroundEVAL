@@ -1,0 +1,27 @@
+# Core Hugging Face libraries
+transformers
+datasets
+evaluate
+
+# For model serving/inference (torch is a common backend)
+torch
+# Or if you prefer tensorflow:
+# tensorflow
+# tensorflow-metal # For MacOS Metal GPU
+
+# For async operations if needed by specific benchmarks or utilities in the future
+# aiohttp
+# asyncio
+
+# Utilities
+scikit-learn # For additional metrics if not in evaluate, required by accuracy/f1
+# pandas # For data manipulation if benchmarks need it
+
+# Specify versions if known to be critical, e.g.:
+# transformers>=4.30.0
+# torch>=2.0.0
+
+# For development and testing
+# pytest
+# flake8
+# black

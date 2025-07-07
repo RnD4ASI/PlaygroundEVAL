@@ -1,0 +1,20 @@
+{
+  "Natural Language Understanding (NLU)": [
+    "ExampleNLUBenchmark",
+    "GLUE_MRPC",
+    "GLUE_CoLA"
+  ],
+  "Text Generation": [
+    "ExampleTextGenBenchmark"
+  ],
+  "Question Answering (QA)": [
+    "SQuAD_v2_Sample"
+  ],
+  "Truthfulness & Safety": [
+    "TruthfulQA_MC_Example"
+  ],
+  "Commonsense Reasoning": [
+    "HellaSwag_Sample"
+  ],
+  "Uncategorized": []
+}

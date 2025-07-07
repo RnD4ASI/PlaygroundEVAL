@@ -1,0 +1,24 @@
+{
+    "overall_summary": {
+        "total_benchmarks_run": 1,
+        "successful_benchmarks": 1,
+        "failed_benchmarks": 0,
+        "average_metrics": {
+            "accuracy": 0.6,
+            "f1": 0.5
+        }
+    },
+    "categorized_results": {
+        "Natural Language Understanding (NLU)": [
+            {
+                "name": "ExampleNLUBenchmark",
+                "description": "A simple example NLU benchmark for text classification using a dummy dataset.",
+                "metrics": {
+                    "accuracy": 0.6,
+                    "f1": 0.5
+                },
+                "error": null
+            }
+        ]
+    }
+}

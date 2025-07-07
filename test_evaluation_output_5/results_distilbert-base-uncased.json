@@ -1,0 +1,23 @@
+{
+    "overall_summary": {
+        "total_benchmarks_run": 1,
+        "successful_benchmarks": 1,
+        "failed_benchmarks": 0,
+        "average_metrics": {}
+    },
+    "categorized_results": {
+        "Natural Language Understanding (NLU)": [
+            {
+                "name": "ExampleNLUBenchmark",
+                "description": "A simple example NLU benchmark for text classification using a dummy dataset.",
+                "metrics": {
+                    "accuracy": null,
+                    "accuracy_error": "To be able to use evaluate-metric/accuracy, you need to install the following dependencies['scikit-learn'] using 'pip install sklearn' for instance'",
+                    "f1": null,
+                    "f1_error": "To be able to use evaluate-metric/f1, you need to install the following dependencies['scikit-learn'] using 'pip install sklearn' for instance'"
+                },
+                "error": null
+            }
+        ]
+    }
+}
