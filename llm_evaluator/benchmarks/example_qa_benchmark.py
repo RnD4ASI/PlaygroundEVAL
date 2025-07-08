@@ -141,7 +141,21 @@ class ExampleQABenchmark(AbstractBenchmark):
                 all_f1_scores.append(current_max_f1)
                 all_em_scores.append(current_max_em)
 
+all_f1_scores.append(current_max_f1)
+                all_em_scores.append(current_max_em)
+
+            except ValueError as ve:
+                print(f"ValueError during QA prediction or processing for question '{question}': {ve!r}")
+                all_f1_scores.append(0.0)
+                all_em_scores.append(0.0)
+            except KeyError as ke:
+                print(f"KeyError during QA prediction or processing for question '{question}': {ke!r}")
+                all_f1_scores.append(0.0)
+                all_em_scores.append(0.0)
             except Exception as e:
+                print(f"CRITICAL: Unexpected error during QA prediction or processing for question '{question}': {e!r}")
+                all_f1_scores.append(0.0)
+                all_em_scores.append(0.0)
                 print(f"CRITICAL: Error during QA prediction or processing for question '{question}': {e!r}")
                 # Append 0 scores for this sample in case of error to maintain list lengths
                 all_f1_scores.append(0.0)
