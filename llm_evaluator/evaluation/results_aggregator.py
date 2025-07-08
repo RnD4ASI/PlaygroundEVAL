@@ -185,7 +185,23 @@ self.results = results
             summary_data = self.get_summary()
 
         try:
-            with open(filepath, 'w') as f:
+# Import os.path for secure path handling
+    # Import pathlib for additional path validation
+    def save_summary_json(self, filepath: str, summary_data: Dict[str, Any] = None):
+        """Saves the summary to a JSON file."""
+        if summary_data is None:
+            summary_data = self.get_summary()
+
+        try:
+            safe_path = os.path.abspath(os.path.normpath(filepath))
+            if not safe_path.startswith(os.path.abspath(os.getcwd())):
+                raise ValueError("Invalid file path")
+            
+            with open(safe_path, 'w') as f:
+                json.dump(summary_data, f, indent=4)
+            print(f"Summary saved to {safe_path}")
+        except Exception as e:
+            print(f"Error saving summary to {filepath}: {e}")
                 json.dump(summary_data, f, indent=4)
             print(f"Summary saved to {filepath}")
         except Exception as e:
