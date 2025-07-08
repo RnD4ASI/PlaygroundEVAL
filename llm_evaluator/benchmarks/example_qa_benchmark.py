@@ -52,7 +52,12 @@ class ExampleQABenchmark(AbstractBenchmark):
 
         precision = 1.0 * num_same / len(pred_tokens)
         recall = 1.0 * num_same / len(truth_tokens)
+precision = 1.0 * num_same / len(pred_tokens)
+        recall = 1.0 * num_same / len(truth_tokens)
+        if precision + recall == 0:
+            return 0.0
         f1 = (2 * precision * recall) / (precision + recall)
+        return f1
         return f1
 
     def _compute_exact_match(self, prediction: str, ground_truth: str) -> float:
