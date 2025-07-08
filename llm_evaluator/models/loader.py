@@ -1,6 +1,6 @@
 # Handles loading Hugging Face models and tokenizers
 
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline, AutoModelForCausalLM, AutoModelForQuestionAnswering
+from transformers import AutoModel, AutoModelForSequenceClassification, AutoTokenizer, pipeline, AutoModelForCausalLM, AutoModelForQuestionAnswering
 import torch
 
 SUPPORTED_TASK_MODELS = {
