@@ -40,7 +40,33 @@ class Evaluator:
             print(f"Warning: Benchmarks directory '{self.benchmarks_dir}' not found.")
             return benchmarks
 
-        for filename in os.listdir(self.benchmarks_dir):
+print(f"Warning: Benchmarks directory '{self.benchmarks_dir}' not found.")
+            return benchmarks
+
+        try:
+            for filename in os.listdir(self.benchmarks_dir):
+                if filename.endswith(".py") and not filename.startswith("__"):
+                    module_name = filename[:-3]
+                    # Construct the full module path relative to the package root
+                    # Assumes 'llm_evaluator' is the top-level package.
+                    # This needs to be robust if the directory structure changes or if run from different locations.
+                    # A common way is to use the package structure: llm_evaluator.benchmarks.module_name
+                    full_module_path = f"llm_evaluator.benchmarks.{module_name}"
+                    try:
+                        module = importlib.import_module(full_module_path)
+                        for name, obj in inspect.getmembers(module):
+                            if inspect.isclass(obj) and issubclass(obj, AbstractBenchmark) and obj is not AbstractBenchmark:
+                                try:
+                                    instance = obj()
+                                    if instance.name in benchmarks:
+                                        print(f"Warning: Duplicate benchmark name '{instance.name}' found. Overwriting.")
+                                    benchmarks[instance.name] = instance
+                                    print(f"Discovered benchmark: {instance.name}")
+                                except TypeError as e:
+                                    print(f"Error instantiating benchmark {name} from {module_name}: {e}. Does it have a constructor requiring arguments?")
+                                except Exception as e:
+        except OSError as e:
+            print(f"Error accessing benchmarks directory: {e}")
             if filename.endswith(".py") and not filename.startswith("__"):
                 module_name = filename[:-3]
                 # Construct the full module path relative to the package root
