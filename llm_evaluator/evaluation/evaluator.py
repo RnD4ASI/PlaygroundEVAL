@@ -106,7 +106,7 @@ print(f"Warning: Benchmarks directory '{self.benchmarks_dir}' not found.")
                             try:
                                 instance = obj()
                                 if instance.name in benchmarks:
-                                    print(f"Warning: Duplicate benchmark name '{instance.name}' found. Overwriting.")
+                                    raise ValueError(f"Duplicate benchmark name '{instance.name}' found. Benchmark names must be unique.")
                                 benchmarks[instance.name] = instance
                                 print(f"Discovered benchmark: {instance.name}")
                             except TypeError as e:
