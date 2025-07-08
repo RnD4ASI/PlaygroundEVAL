@@ -145,7 +145,51 @@ print(f"Warning: Benchmarks directory '{self.benchmarks_dir}' not found.")
         results = []
         benchmarks_to_run = benchmark_names or self.list_benchmarks()
 
-        print(f"\nRunning evaluation for model: {model_name}")
+Returns:
+            A list of dictionaries, where each dictionary contains the results of a benchmark.
+            Each result dictionary includes 'benchmark_name', 'category', and 'metrics'.
+        """
+        # Import logging module
+        import logging
+
+        results = []
+        benchmarks_to_run = benchmark_names or self.list_benchmarks()
+
+        logging.info(f"
+Running evaluation for model: {model_name}")
+        logging.info(f"Target benchmarks: {', '.join(benchmarks_to_run) if benchmarks_to_run else 'All available'}")
+
+        for name in benchmarks_to_run:
+            benchmark = self.benchmarks.get(name)
+            if benchmark:
+                logging.info(f"
+--- Running benchmark: {benchmark.name} ---")
+                try:
+                    benchmark_result = benchmark.run(model_pipeline, model_name, **kwargs)
+                    category = self.benchmark_categories.get(benchmark.name, "Uncategorized")
+                    results.append({
+                        "benchmark_name": benchmark.name,
+                        "category": category,
+                        "description": benchmark.description,
+                        "metrics": benchmark_result
+                    })
+                    logging.info(f"--- Completed benchmark: {benchmark.name} ---")
+                except Exception as e:
+                    logging.error(f"Error running benchmark {benchmark.name}: {e}")
+                    results.append({
+                        "benchmark_name": benchmark.name,
+                        "category": self.benchmark_categories.get(benchmark.name, "Uncategorized"),
+                        "description": benchmark.description,
+                        "metrics": None,
+                        "error": str(e)
+                    })
+            else:
+                logging.warning(f"Warning: Benchmark '{name}' not found.")
+                results.append({
+                    "benchmark_name": name,
+                    "category": "Unknown",
+                    "description": "Benchmark not found during execution.",
+                    "metrics": None,
         print(f"Target benchmarks: {', '.join(benchmarks_to_run) if benchmarks_to_run else 'All available'}")
 
         for name in benchmarks_to_run:
