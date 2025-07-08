@@ -24,7 +24,32 @@ class Evaluator:
                 for name in benchmark_names:
                     categories_map[name] = category
         except FileNotFoundError:
-            print(f"Warning: Category config file not found at {self.category_config_path}. Benchmarks will not be categorized.")
+try:
+            config = load_json(self.category_config_path)
+            for category, benchmark_names in config.items():
+                for name in benchmark_names:
+                    categories_map[name] = category
+        except FileNotFoundError:
+            logging.warning(f"Category config file not found at {self.category_config_path}. Benchmarks will not be categorized.")
+        except Exception as e:
+            logging.error(f"Error loading category config: {e}. Benchmarks will not be categorized.")
+        return categories_map
+
+    def _discover_benchmarks(self) -> Dict[str, AbstractBenchmark]:
+        """
+        Discovers benchmark classes within the benchmarks directory.
+        A module in the benchmarks directory is considered a benchmark provider
+        if it contains one or more classes inheriting from AbstractBenchmark.
+        """
+        benchmarks: Dict[str, AbstractBenchmark] = {}
+        if not os.path.exists(self.benchmarks_dir):
+            logging.warning(f"Benchmarks directory '{self.benchmarks_dir}' not found.")
+            return benchmarks
+
+        for filename in os.listdir(self.benchmarks_dir):
+            if filename.endswith(".py") and not filename.startswith("__"):
+                module_name = filename[:-3]
+                # Construct the full module path relative to the package root
         except Exception as e:
             print(f"Error loading category config: {e}. Benchmarks will not be categorized.")
         return categories_map
