@@ -1,0 +1,28 @@
+{
+    "overall_summary": {
+        "total_benchmarks_run": 1,
+        "successful_benchmarks": 1,
+        "failed_benchmarks": 0,
+        "average_metrics": {
+            "rouge1": 0.14874141876430208,
+            "rouge2": 0.0,
+            "rougeL": 0.14874141876430208,
+            "rougeLsum": 0.14874141876430208
+        }
+    },
+    "categorized_results": {
+        "Text Generation": [
+            {
+                "name": "ExampleTextGenBenchmark",
+                "description": "A simple example text generation benchmark using hardcoded prompts and ROUGE.",
+                "metrics": {
+                    "rouge1": 0.14874141876430208,
+                    "rouge2": 0.0,
+                    "rougeL": 0.14874141876430208,
+                    "rougeLsum": 0.14874141876430208
+                },
+                "error": null
+            }
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+[
+    {
+        "benchmark_name": "ExampleTextGenBenchmark",
+        "category": "Text Generation",
+        "description": "A simple example text generation benchmark using hardcoded prompts and ROUGE.",
+        "metrics": {
+            "rouge1": 0.14874141876430208,
+            "rouge2": 0.0,
+            "rougeL": 0.14874141876430208,
+            "rougeLsum": 0.14874141876430208
+        }
+    }
+]
