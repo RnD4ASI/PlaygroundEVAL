@@ -8,6 +8,7 @@
     "ExampleTextGenBenchmark"
   ],
   "Question Answering (QA)": [
+    "ExampleQABenchmark",
     "SQuAD_v2_Sample"
   ],
   "Truthfulness & Safety": [
