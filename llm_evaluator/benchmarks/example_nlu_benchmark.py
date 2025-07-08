@@ -159,7 +159,7 @@ class ExampleNLUBenchmark(AbstractBenchmark):
                             numeric_part = label.split('_')[-1]
                             if numeric_part.isdigit():
                                 numeric_part_default = int(numeric_part)
-                        except: # Keep default -1 if parsing fails
+                        except (ValueError, IndexError): # Keep default -1 if parsing fails
                             pass
 
                         if numeric_part_default == -1:
