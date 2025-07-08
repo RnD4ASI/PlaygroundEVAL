@@ -39,7 +39,69 @@ class ResultsAggregator:
         successful_benchmarks = 0
         failed_benchmarks = 0
 
+self.results = results
+
+    def get_summary(self) -> Dict[str, Any]:
+        """
+        Generates a summarized report of all benchmark results, categorized.
+
+        Returns:
+            A dictionary where keys are categories, and values are lists of benchmark
+            results belonging to that category. Also includes an overall summary.
+        """
+        categorized_results: Dict[str, List[Dict[str, Any]]] = {}
+        all_metrics_summary: Dict[str, List[float]] = {}  # To calculate overall averages
+        successful_benchmarks = 0
+        failed_benchmarks = 0
+
         for res in self.results:
+            category = res.get("category", "Uncategorized")
+            if category not in categorized_results:
+                categorized_results[category] = []
+
+            benchmark_data = {
+                "name": res.get("benchmark_name"),
+                "description": res.get("description"),
+                "metrics": res.get("metrics"),
+                "error": res.get("error")
+            }
+            categorized_results[category].append(benchmark_data)
+
+            if res.get("metrics") and not res.get("error"):
+                successful_benchmarks += 1
+                # For overall summary, collect all numeric metrics
+                for metric_name, metric_value in res["metrics"].items():
+                    if isinstance(metric_value, (int, float)):  # Only numeric metrics for averaging
+                        if metric_name not in all_metrics_summary:
+                            all_metrics_summary[metric_name] = []
+                        all_metrics_summary[metric_name].append(metric_value)
+            else:
+                failed_benchmarks += 1
+
+        # Calculate average for overall metrics
+        overall_average_metrics = {
+            metric: sum(values) / len(values) if values else "N/A (no numeric values)"
+            for metric, values in all_metrics_summary.items()
+        }
+
+        summary = {
+            "overall_summary": {
+                "total_benchmarks_run": len(self.results),
+                "successful_benchmarks": successful_benchmarks,
+                "failed_benchmarks": failed_benchmarks,
+                "average_metrics": overall_average_metrics  # Average across all successful benchmarks
+            },
+            "categorized_results": categorized_results
+        }
+        return summary
+
+    def print_summary(self, summary_data: Dict[str, Any] = None):
+        """Prints the summary in a human-readable format."""
+        if summary_data is None:
+            summary_data = self.get_summary()
+
+        print("
+===== Evaluation Summary =====")
             category = res.get("category", "Uncategorized")
             if category not in categorized_results:
                 categorized_results[category] = []
