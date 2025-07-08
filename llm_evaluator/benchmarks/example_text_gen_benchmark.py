@@ -180,6 +180,26 @@ if __name__ == '__main__':
         }
     }
     results_custom = benchmark.run(mock_pipeline, "mock_text_gen_model_custom", benchmark_specific_params=custom_params)
-    print(f"Results (custom params): {results_custom}")
+mock_pipeline = MockTextGenerationPipeline()
+    benchmark = ExampleTextGenBenchmark()
+
+    print("
+--- Test Case 1: Default parameters ---")
+    results_default = benchmark.run(mock_pipeline, "mock_text_gen_model")
+    print(f"Results (default params): [REDACTED]")
+
+    print("
+--- Test Case 2: Custom parameters (1 sample, 5 tokens) ---")
+    custom_params = {
+        "ExampleTextGenBenchmark": {
+            "num_samples": 1,
+            "max_new_tokens": 5
+        }
+    }
+    results_custom = benchmark.run(mock_pipeline, "mock_text_gen_model_custom", benchmark_specific_params=custom_params)
+    print(f"Results (custom params): [REDACTED]")
+
+    print("
+ExampleTextGenBenchmark direct test finished.")
 
     print("\nExampleTextGenBenchmark direct test finished.")
